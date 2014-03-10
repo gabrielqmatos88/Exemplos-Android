@@ -23,10 +23,13 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Demonstrates how to show an AlertDialog that is managed by a Fragment.
@@ -34,6 +37,7 @@ import android.widget.TextView;
 
 public class FragmentDialogAlarmActivity extends Activity {
 
+	OnClickListener cListener;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,6 +46,14 @@ public class FragmentDialogAlarmActivity extends Activity {
 		View tv = findViewById(R.id.text);
 		((TextView) tv)
 				.setText("Example of displaying an alert dialog with a DialogFragment");
+		
+		cListener = new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_LONG).show();
+			}
+		};
 
 		// Watch for button clicks.
 		Button button = (Button) findViewById(R.id.show);
@@ -54,7 +66,7 @@ public class FragmentDialogAlarmActivity extends Activity {
 
 	void showDialog() {
 		DialogFragment newFragment = MyAlertDialogFragment
-				.newInstance(R.string.alert_dialog_two_buttons_title);
+				.newInstance(R.string.alert_dialog_two_buttons_title,cListener);
 		newFragment.show(getFragmentManager(), "dialog");
 	}
 
@@ -70,37 +82,32 @@ public class FragmentDialogAlarmActivity extends Activity {
 
 	public static class MyAlertDialogFragment extends DialogFragment {
 
-		public static MyAlertDialogFragment newInstance(int title) {
+		static OnClickListener clickListener;
+		public static MyAlertDialogFragment newInstance(int title,OnClickListener cListener) {
 			MyAlertDialogFragment frag = new MyAlertDialogFragment();
 			Bundle args = new Bundle();
 			args.putInt("title", title);
 			frag.setArguments(args);
+			clickListener = cListener;
 			return frag;
 		}
 
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			int title = getArguments().getInt("title");
+			
+			LayoutInflater inflater = LayoutInflater.from(getActivity());
+			View v = inflater.inflate(R.layout.dialog_view, null);
+			TextView text = (TextView)v.findViewById(R.id.text);
+			Button btRefresh = (Button)v.findViewById(R.id.btRefresh);
+			ImageView image = (ImageView)v.findViewById(R.id.imageView1);
+			
+			if(clickListener != null)
+			{
+				btRefresh.setOnClickListener(clickListener);
+			}
 
-			return new AlertDialog.Builder(getActivity())
-					.setIcon(R.drawable.alert_dialog_dart_icon)
-					.setTitle(title)
-					.setPositiveButton(R.string.alert_dialog_ok,
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									((FragmentDialogAlarmActivity) getActivity())
-											.doPositiveClick();
-								}
-							})
-					.setNegativeButton(R.string.alert_dialog_cancel,
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									((FragmentDialogAlarmActivity) getActivity())
-											.doNegativeClick();
-								}
-							}).create();
+			return new AlertDialog.Builder(getActivity()).setView(v).create();
 		}
 	}
 
