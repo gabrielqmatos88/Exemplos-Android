@@ -20,12 +20,19 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,6 +45,7 @@ import android.widget.Toast;
 public class FragmentDialogAlarmActivity extends Activity {
 
 	OnClickListener cListener;
+	static Dialog dialog;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,9 +67,45 @@ public class FragmentDialogAlarmActivity extends Activity {
 		Button button = (Button) findViewById(R.id.show);
 		button.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				showDialog();
+				createDialog();
 			}
 		});
+	}
+	
+	void createDialog()
+	{
+		dialog = new Dialog(this);
+	    dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+	    dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+	    // layout to display
+	    dialog.setContentView(R.layout.dialog_view);
+//	    dialog.setContentView();
+	    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+	    Button bt_refresh = (Button) dialog.findViewById(R.id.btRefresh);
+	    bt_refresh.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+	    dialog.show();
+	    ImageView image = (ImageView)dialog.findViewById(R.id.imageView1);
+	    /*RotateAnimation anim = new RotateAnimation(0f, 360f, width, height);
+	    anim.setInterpolator(new LinearInterpolator());
+	    anim.setRepeatCount(Animation.INFINITE);
+	    anim.setDuration(700);*/
+	    Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_image);
+	    image.startAnimation(anim);
+	}
+	
+	View inflateView ()
+	{
+		LayoutInflater inflater = LayoutInflater.from(this);
+		View v = inflater.inflate(R.layout.dialog_view, null);
+		Button btRefresh = (Button)v.findViewById(R.id.btRefresh);
+		
+		return v;
 	}
 
 	void showDialog() {
@@ -98,16 +142,26 @@ public class FragmentDialogAlarmActivity extends Activity {
 			
 			LayoutInflater inflater = LayoutInflater.from(getActivity());
 			View v = inflater.inflate(R.layout.dialog_view, null);
-			TextView text = (TextView)v.findViewById(R.id.text);
+			//TextView text = (TextView)v.findViewById(R.id.text);
 			Button btRefresh = (Button)v.findViewById(R.id.btRefresh);
-			ImageView image = (ImageView)v.findViewById(R.id.imageView1);
+			//ImageView image = (ImageView)v.findViewById(R.id.imageView1);
 			
 			if(clickListener != null)
 			{
-				btRefresh.setOnClickListener(clickListener);
+				btRefresh.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						dismiss();
+					}
+				});
 			}
+			Dialog dialog = new AlertDialog.Builder(getActivity())
+					.setView(v)
+					.create();
+			dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-			return new AlertDialog.Builder(getActivity()).setView(v).create();
+			return dialog ;
 		}
 	}
 

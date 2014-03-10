@@ -12,7 +12,7 @@
         android:layout_height="40dp"
         android:layout_marginBottom="5dp"
         android:layout_marginRight="10dp"
-        android:src="@android:drawable/stat_notify_error" />
+        android:src="@drawable/largeloader" />
 
     <TextView
         android:id="@+id/text"
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/imageView1"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#fff"
+        android:textColor="#333"
         android:text="Error"
         android:textSize="20sp" />
 
@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/imageView1"
         android:text="Recarregar"
+        android:textColor="#fff"
         android:background="@drawable/bt_dialog_shape" />
 
 </RelativeLayout>
