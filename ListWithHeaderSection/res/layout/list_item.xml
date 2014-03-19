@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    
+    <RelativeLayout 
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" 
+        android:background="#333"
+        android:visibility="gone">
+        
+        <TextView 
+            android:id="@+id/headerText"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="#fff"
+            android:padding="10dp"
+            android:text="Header"
+            android:textSize="17sp"/>
+        
+        <View 
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="#85BC69"
+            android:layout_below="@id/headerText"/>
+        
+    </RelativeLayout>
+    
+    <RelativeLayout 
+        android:id="@+id/sectionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+        android:background="#ebebeb">
+        
+        <TextView 
+            android:id="@+id/sectionText"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="#333"
+            android:paddingTop="7dp"
+            android:paddingLeft="20dp"
+            android:paddingBottom="7dp"
+            android:paddingRight="10dp"
+            android:text="Section"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+    
+    
+
+</LinearLayout>
