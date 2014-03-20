@@ -8,10 +8,12 @@ import sample.list.with.header.section.models.ItemList;
 import sample.list.with.header.section.models.SectionItem;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 public class SampleFragment extends Fragment {
 
@@ -31,6 +33,7 @@ public class SampleFragment extends Fragment {
 		lista = (ListView) rootView.findViewById(R.id.listView);
 		itens = new ArrayList<ItemList>();
 		preencherItens();
+		RelativeLayout layout = (RelativeLayout)inflater.inflate(R.layout.list_header_view, null);
 		adapter = new ListHeaderAdapter(getActivity().getApplicationContext(),
 				itens);
 		lista.setAdapter(adapter);

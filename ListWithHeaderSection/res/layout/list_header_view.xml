@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/header_bg_dark"
+    android:padding="10dp" >
+
+    <ImageView
+        android:id="@+id/foto"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/eu" />
+
+    <TextView
+        android:id="@+id/nome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/foto"
+        android:layout_toRightOf="@id/foto"
+        android:text="Gabriel Q. Matos"
+        android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nome"
+        android:layout_toRightOf="@id/foto"
+        android:text="gabriel.q.matos@gmail.com"
+        android:textColor="#999" />
+
+    <TextView
+        android:id="@+id/emprego"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/foto"
+        android:layout_toRightOf="@id/foto"
+        android:text="Desenvolvedor em FPF Tech"
+        android:textColor="#fff" />
+
+</RelativeLayout>
