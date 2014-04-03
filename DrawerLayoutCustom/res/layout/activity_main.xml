@@ -1,0 +1,20 @@
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!-- The main content view -->
+    <fragment
+        android:id="@+id/content_frame"
+        android:name="com.example.drawerlayoutcustom.fragments.MainFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    
+    <fragment
+        android:id="@+id/drawer_frame"
+        android:name="com.example.drawerlayoutcustom.fragments.MenuDrawerFragment"
+        android:layout_height="match_parent"
+        android:layout_width="280dp"
+        android:layout_gravity="start" />
+
+</android.support.v4.widget.DrawerLayout>
